@@ -1,44 +1,172 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smart Healthcare Login</title>
+    <title>Login | Smart Healthcare</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d6efd, #00b4d8);
+        }
+
+        .login-card {
+            width: 420px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .login-title {
+            font-weight: 600;
+            color: #0d6efd;
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .login-btn {
+            height: 48px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>AI Powered Service Reliability Prediction</h1>
+<div class="login-card">
 
-<h2>Smart Healthcare</h2>
+    <div class="text-center">
 
-<form action="/dashboard">
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
 
-<label>Username</label>
+        <h3 class="login-title mt-3">
+            Smart Healthcare
+        </h3>
 
-<br>
+        <p class="text-muted">
+            AI-Powered Service Reliability Prediction
+        </p>
 
-<input type="text">
+    </div>
 
-<br><br>
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
 
-<label>Password</label>
+    <form method="POST" action="{{ url_for('login') }}">
 
-<br>
+        <div class="mb-3">
 
-<input type="password">
+            <label class="form-label">
+                Username
+            </label>
 
-<br><br>
+            <div class="input-group">
 
-<button type="submit">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-user"></i>
+                </span>
 
-Login
+                <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Enter username"
+                    required>
 
-</button>
+            </div>
 
-</form>
+        </div>
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <div class="input-group">
+
+                <span class="input-group-text">
+                    <i class="fa-solid fa-lock"></i>
+                </span>
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Enter password"
+                    required>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="btn btn-primary w-100 login-btn">
+
+            <i class="fa-solid fa-right-to-bracket"></i>
+
+            Login
+
+        </button>
+
+    </form>
+
+
+    <div class="text-center mt-4">
+
+        <small class="text-muted">
+            Medical Device Reliability Monitoring System
+        </small>
+
+    </div>
+
+</div>
 
 </body>
-
 </html>

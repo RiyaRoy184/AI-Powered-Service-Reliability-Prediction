@@ -3,763 +3,543 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>AI Healthcare Reliability Prediction</title>
-
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-
-background:#eef3f8;
-
-}
-
-/* Sidebar */
-
-.sidebar{
-
-position:fixed;
-
-left:0;
-
-top:0;
-
-width:250px;
-
-height:100vh;
-
-background:#0d6efd;
-
-padding-top:20px;
-
-box-shadow:5px 0px 15px rgba(0,0,0,.2);
-
-}
-
-.sidebar h2{
-
-text-align:center;
-
-color:white;
-
-margin-bottom:30px;
-
-font-weight:bold;
-
-}
-
-.sidebar a{
-
-display:block;
-
-padding:15px 25px;
-
-text-decoration:none;
-
-color:white;
-
-font-size:16px;
-
-transition:.3s;
-
-}
-
-.sidebar a i{
-
-margin-right:12px;
-
-}
-
-.sidebar a:hover{
-
-background:white;
-
-color:#0d6efd;
-
-padding-left:35px;
-
-}
-
-/* Top Navbar */
-
-.topbar{
-
-margin-left:250px;
-
-height:70px;
-
-background:white;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:0px 30px;
-
-box-shadow:0px 3px 10px rgba(0,0,0,.1);
-
-}
-
-.topbar h3{
-
-font-weight:bold;
-
-color:#0d6efd;
-
-}
-
-.admin{
-
-display:flex;
-
-align-items:center;
-
-}
-
-.admin img{
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-margin-right:10px;
-
-}
-
-/* Main Content */
-
-.content{
-
-margin-left:250px;
-
-padding:30px;
-
-}
-
-/* Page Title */
-
-.page-title{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-box-shadow:0px 5px 15px rgba(0,0,0,.08);
-
-margin-bottom:25px;
-
-}
-
-.page-title h2{
-
-color:#0d6efd;
-
-font-weight:bold;
-
-}
-
-/* Prediction Card */
-
-.card{
-
-border:none;
-
-border-radius:18px;
-
-box-shadow:0px 8px 20px rgba(0,0,0,.08);
-
-padding:30px;
-
-background:white;
-
-}
-
-.card h4{
-
-font-weight:bold;
-
-color:#0d6efd;
-
-margin-bottom:25px;
-
-}
-
-.footer{
-
-margin-top:30px;
-
-text-align:center;
-
-color:gray;
-
-font-size:14px;
-
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Prediction | Smart Healthcare</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #eef3f8;
+        }
+
+        .sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100vh;
+            background: #0d6efd;
+            padding-top: 20px;
+            box-shadow: 5px 0 15px rgba(0,0,0,.15);
+        }
+
+        .sidebar h3 {
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px 25px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: white;
+            color: #0d6efd;
+        }
+
+        .sidebar i {
+            width: 25px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 18px rgba(0,0,0,.07);
+        }
+
+        .section-title {
+            color: #0d6efd;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-control,
+        .form-select {
+            height: 45px;
+            border-radius: 8px;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<!-- Sidebar -->
+
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
-<h2>
+    <h3>
+        <i class="fa-solid fa-hospital"></i>
+        Smart Healthcare
+    </h3>
 
-<i class="fa-solid fa-hospital"></i>
+    <a href="{{ url_for('dashboard') }}">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
 
-Smart Healthcare
+    <a href="{{ url_for('prediction') }}" class="active">
+        <i class="fa-solid fa-brain"></i>
+        AI Prediction
+    </a>
 
-</h2>
+    <a href="{{ url_for('devices') }}">
+        <i class="fa-solid fa-laptop-medical"></i>
+        Devices
+    </a>
 
-<a href="/dashboard">
+    <a href="{{ url_for('history') }}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        History
+    </a>
 
-<i class="fa-solid fa-house"></i>
+    <a href="{{ url_for('analytics') }}">
+        <i class="fa-solid fa-chart-line"></i>
+        Analytics
+    </a>
 
-Dashboard
+    <a href="{{ url_for('reports') }}">
+        <i class="fa-solid fa-file-medical"></i>
+        Reports
+    </a>
 
-</a>
-
-<a href="/prediction">
-
-<i class="fa-solid fa-brain"></i>
-
-AI Prediction
-
-</a>
-
-<a href="/devices">
-
-<i class="fa-solid fa-laptop-medical"></i>
-
-Devices
-
-</a>
-
-<a href="/history">
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-Prediction History
-
-</a>
-
-<a href="/analytics">
-
-<i class="fa-solid fa-chart-line"></i>
-
-Analytics
-
-</a>
-
-<a href="/reports">
-
-<i class="fa-solid fa-file-pdf"></i>
-
-Reports
-
-</a>
-
-<a href="/profile">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-<a href="/">
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
-
-</a>
+    <a href="{{ url_for('profile') }}">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 
 </div>
 
-<!-- Top Navigation -->
 
-<div class="topbar">
+<div class="main">
 
-<h3>
+    <h2 class="text-primary">
+        <i class="fa-solid fa-brain"></i>
+        AI Reliability Prediction
+    </h2>
 
-AI Powered Service Reliability Prediction
+    <p class="text-muted">
+        Enter the medical device information below.
+    </p>
 
-</h3>
 
-<div class="admin">
+    <form method="POST" action="{{ url_for('predict') }}">
 
-<img src="https://i.imgur.com/4Z7Dz5F.png">
+        <div class="form-card">
 
-<div>
 
-<b>Administrator</b>
+            <!-- DEVICE -->
 
-<br>
+            <h4 class="section-title">
 
-<small>Hospital Admin</small>
+                <i class="fa-solid fa-laptop-medical"></i>
+
+                Device Information
+
+            </h4>
+
+
+            <div class="row g-3">
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Device Type
+                    </label>
+
+                    <select
+                        name="Device_Type"
+                        class="form-select"
+                        required>
+
+                        <option value="">
+                            Select Device
+                        </option>
+
+                        <option value="Defibrillator">
+                            Defibrillator
+                        </option>
+
+                        <option value="Infusion Pump">
+                            Infusion Pump
+                        </option>
+
+                        <option value="MRI Scanner">
+                            MRI Scanner
+                        </option>
+
+                        <option value="X-Ray Machine">
+                            X-Ray Machine
+                        </option>
+
+                        <option value="PET Scanner">
+                            PET Scanner
+                        </option>
+
+                        <option value="CT Scanner">
+                            CT Scanner
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Device Age (Years)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Age"
+                        class="form-control"
+                        step="0.1"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Manufacturer
+                    </label>
+
+                    <select
+                        name="Manufacturer"
+                        class="form-select"
+                        required>
+
+                        <option value="">
+                            Select Manufacturer
+                        </option>
+
+                        <option value="CardioSync">
+                            CardioSync
+                        </option>
+
+                        <option value="MedEquip">
+                            MedEquip
+                        </option>
+
+                        <option value="ImagingTech">
+                            ImagingTech
+                        </option>
+
+                        <option value="RescueTech">
+                            RescueTech
+                        </option>
+
+                        <option value="UltraMed">
+                            UltraMed
+                        </option>
+
+                        <option value="ScanPro">
+                            ScanPro
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Model
+                    </label>
+
+                    <select
+                        name="Model"
+                        class="form-select"
+                        required>
+
+                        <option value="">
+                            Select Model
+                        </option>
+
+                        <option value="Model-100">Model-100</option>
+                        <option value="Model-150">Model-150</option>
+                        <option value="Model-200">Model-200</option>
+                        <option value="Model-250">Model-250</option>
+                        <option value="Model-300">Model-300</option>
+                        <option value="Model-350">Model-350</option>
+                        <option value="Model-400">Model-400</option>
+                        <option value="Model-450">Model-450</option>
+                        <option value="Model-500">Model-500</option>
+                        <option value="Model-550">Model-550</option>
+                        <option value="Model-600">Model-600</option>
+                        <option value="Model-650">Model-650</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Country
+                    </label>
+
+                    <select
+                        name="Country"
+                        class="form-select"
+                        required>
+
+                        <option value="">
+                            Select Country
+                        </option>
+
+                        <option value="France">France</option>
+                        <option value="Italy">Italy</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Japan">Japan</option>
+                        <option value="USA">USA</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Maintenance Cost
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Maintenance_Cost"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAINTENANCE -->
+
+            <h4 class="section-title mt-5">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                Maintenance Information
+
+            </h4>
+
+
+            <div class="row g-3">
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Downtime (Hours)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Downtime"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Maintenance Frequency
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Maintenance_Frequency"
+                        class="form-control"
+                        min="1"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Failure Event Count
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Failure_Event_Count"
+                        class="form-control"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Maintenance Class
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Maintenance_Class"
+                        class="form-control"
+                        min="1"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Operational Hours
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Operational_Hours_Est"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Expected Lifespan
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Expected_Lifespan_Est"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        MTBF
+                    </label>
+
+                    <input
+                        type="number"
+                        name="MTBF"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Cost Per Hour
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Cost_Per_Hour"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Lifespan Usage Ratio
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Lifespan_Usage_Ratio"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="text-center mt-5">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-lg px-5">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Predict Reliability
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
 
 </div>
-
-</div>
-
-</div>
-
-<!-- Main Content -->
-
-<div class="content">
-
-<div class="page-title">
-
-<h2>
-
-<i class="fa-solid fa-microchip"></i>
-
-Medical Device Reliability Prediction
-
-</h2>
-
-<p>
-
-Fill in the medical device information below to predict the reliability status,
-calculate the reliability score, and receive maintenance recommendations.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h4>
-
-<i class="fa-solid fa-notes-medical"></i>
-
-Device Information
-
-</h4>
-
-<!-- Prediction Form Starts Here -->
-
-<form action="/predict" method="POST">
-
-<!-- PART 2 STARTS FROM HERE -->
-
-<div class="row">
-
-    <!-- Device Type -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Device Type</label>
-        <select class="form-select" name="Device_Type" required>
-            <option value="">Select Device</option>
-            <option>Defibrillator</option>
-            <option>Infusion Pump</option>
-            <option>MRI Scanner</option>
-            <option>CT Scanner</option>
-            <option>PET Scanner</option>
-            <option>X-Ray Machine</option>
-        </select>
-    </div>
-
-    <!-- Age -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Device Age (Years)</label>
-        <input type="number" class="form-control"
-               name="Age" min="0" required>
-    </div>
-
-    <!-- Manufacturer -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Manufacturer</label>
-        <select class="form-select" name="Manufacturer" required>
-            <option value="">Select Manufacturer</option>
-            <option>CardioSync</option>
-            <option>MedEquip</option>
-            <option>ImagingTech</option>
-            <option>RescueTech</option>
-            <option>UltraMed</option>
-            <option>ScanPro</option>
-        </select>
-    </div>
-
-    <!-- Model -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Model</label>
-        <select class="form-select" name="Model" required>
-
-            <option>Model-100</option>
-            <option>Model-150</option>
-            <option>Model-200</option>
-            <option>Model-250</option>
-            <option>Model-300</option>
-            <option>Model-350</option>
-            <option>Model-400</option>
-            <option>Model-450</option>
-            <option>Model-500</option>
-            <option>Model-550</option>
-            <option>Model-600</option>
-            <option>Model-650</option>
-
-        </select>
-    </div>
-
-    <!-- Country -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Country</label>
-        <select class="form-select" name="Country" required>
-
-            <option>France</option>
-            <option>Italy</option>
-            <option>UK</option>
-            <option>Canada</option>
-            <option>Japan</option>
-            <option>USA</option>
-
-        </select>
-    </div>
-
-    <!-- Maintenance Cost -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Maintenance Cost</label>
-        <input type="number"
-               class="form-control"
-               name="Maintenance_Cost"
-               required>
-    </div>
-
-    <!-- Downtime -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Downtime (Hours)</label>
-        <input type="number"
-               class="form-control"
-               name="Downtime"
-               required>
-    </div>
-
-    <!-- Maintenance Frequency -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Maintenance Frequency</label>
-
-        <select class="form-select"
-                name="Maintenance_Frequency"
-                required>
-
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-
-        </select>
-
-    </div>
-
-    <!-- Failure Event Count -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Failure Event Count</label>
-        <input type="number"
-               class="form-control"
-               name="Failure_Event_Count"
-               required>
-    </div>
-
-    <!-- Maintenance Class -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Maintenance Class</label>
-
-        <select class="form-select"
-                name="Maintenance_Class"
-                required>
-
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-
-        </select>
-
-    </div>
-
-    <!-- Operational Hours -->
-    <div class="col-md-4 mb-3">
-        <label class="form-label">Operational Hours</label>
-
-        <input type="number"
-               class="form-control"
-               name="Operational_Hours_Est"
-               required>
-
-    </div>
-
-    <!-- Expected Lifespan -->
-    <div class="col-md-4 mb-3">
-
-        <label class="form-label">
-
-            Expected Lifespan
-
-        </label>
-
-        <input type="number"
-               class="form-control"
-               name="Expected_Lifespan_Est"
-               required>
-
-    </div>
-
-    <!-- MTBF -->
-    <div class="col-md-4 mb-3">
-
-        <label class="form-label">
-
-            MTBF
-
-        </label>
-
-        <input type="number"
-               class="form-control"
-               name="MTBF"
-               required>
-
-    </div>
-
-    <!-- Cost Per Hour -->
-    <div class="col-md-4 mb-3">
-
-        <label class="form-label">
-
-            Cost Per Hour
-
-        </label>
-
-        <input type="number"
-               class="form-control"
-               name="Cost_Per_Hour"
-               required>
-
-    </div>
-
-    <!-- Lifespan Usage Ratio -->
-    <div class="col-md-4 mb-3">
-
-        <label class="form-label">
-
-            Lifespan Usage Ratio
-
-        </label>
-
-        <input type="number"
-               step="0.01"
-               class="form-control"
-               name="Lifespan_Usage_Ratio"
-               required>
-
-    </div>
-
-</div>
-
-<hr class="mt-4">
-
-<div class="text-center">
-
-<button
-type="submit"
-class="btn btn-primary btn-lg">
-
-<i class="fa-solid fa-brain"></i>
-
-Predict Reliability
-
-</button>
-
-<button
-type="reset"
-class="btn btn-secondary btn-lg ms-3">
-
-<i class="fa-solid fa-rotate-left"></i>
-
-Reset
-
-</button>
-
-</div>
-
-<!-- End Form -->
-
-</form>
-
-</div>
-
-<!-- Footer -->
-
-<div class="footer">
-
-<hr>
-
-<p>
-
-© 2026 AI Powered Service Reliability Prediction in Smart Healthcare
-
-</p>
-
-<p>
-
-Developed using Python | Flask | Machine Learning | Bootstrap
-
-</p>
-
-</div>
-
-</div>
-
-<!-- Bootstrap JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Form Validation -->
-
-<script>
-
-document.querySelector("form").addEventListener("submit",function(e){
-
-let age=document.getElementsByName("Age")[0].value;
-
-let maintenance=document.getElementsByName("Maintenance_Cost")[0].value;
-
-let downtime=document.getElementsByName("Downtime")[0].value;
-
-let failure=document.getElementsByName("Failure_Event_Count")[0].value;
-
-let operational=document.getElementsByName("Operational_Hours_Est")[0].value;
-
-let lifespan=document.getElementsByName("Expected_Lifespan_Est")[0].value;
-
-let mtbf=document.getElementsByName("MTBF")[0].value;
-
-let cost=document.getElementsByName("Cost_Per_Hour")[0].value;
-
-let ratio=document.getElementsByName("Lifespan_Usage_Ratio")[0].value;
-
-if(age<0){
-
-alert("Device Age cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(maintenance<0){
-
-alert("Maintenance Cost cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(downtime<0){
-
-alert("Downtime cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(failure<0){
-
-alert("Failure Event Count cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(operational<0){
-
-alert("Operational Hours cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(lifespan<=0){
-
-alert("Expected Lifespan must be greater than zero.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(mtbf<=0){
-
-alert("MTBF must be greater than zero.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(cost<0){
-
-alert("Cost Per Hour cannot be negative.");
-
-e.preventDefault();
-
-return;
-
-}
-
-if(ratio<0 || ratio>1){
-
-alert("Lifespan Usage Ratio must be between 0 and 1.");
-
-e.preventDefault();
-
-return;
-
-}
-
-});
-
-</script>
 
 </body>
-
 </html>

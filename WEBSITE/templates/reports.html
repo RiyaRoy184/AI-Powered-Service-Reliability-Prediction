@@ -1,18 +1,314 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>Prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | Smart Healthcare</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #eef3f8;
+        }
+
+        .sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100vh;
+            background: #0d6efd;
+            padding-top: 20px;
+        }
+
+        .sidebar h3 {
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px 25px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: white;
+            color: #0d6efd;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.06);
+        }
+
+        .report-option {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            display: block;
+            transition: .3s;
+        }
+
+        .report-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+        }
+
+        .report-option i {
+            font-size: 35px;
+            color: #0d6efd;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<h1>Reports Page</h1>
 
-<a href="/dashboard">Back to Dashboard</a>
+<div class="sidebar">
+
+    <h3>
+        <i class="fa-solid fa-hospital"></i>
+        Smart Healthcare
+    </h3>
+
+    <a href="{{ url_for('dashboard') }}">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('prediction') }}">
+        <i class="fa-solid fa-brain"></i>
+        AI Prediction
+    </a>
+
+    <a href="{{ url_for('devices') }}">
+        <i class="fa-solid fa-laptop-medical"></i>
+        Devices
+    </a>
+
+    <a href="{{ url_for('history') }}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        History
+    </a>
+
+    <a href="{{ url_for('analytics') }}">
+        <i class="fa-solid fa-chart-line"></i>
+        Analytics
+    </a>
+
+    <a href="{{ url_for('reports') }}" class="active">
+        <i class="fa-solid fa-file-medical"></i>
+        Reports
+    </a>
+
+    <a href="{{ url_for('profile') }}">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
+
+</div>
+
+
+<div class="main">
+
+    <h2 class="text-primary">
+        <i class="fa-solid fa-file-medical"></i>
+        Reports
+    </h2>
+
+    <p class="text-muted">
+        View prediction, device and machine learning reports.
+    </p>
+
+
+    <div class="report-card mt-4">
+
+        <h4>
+            Available Reports
+        </h4>
+
+        <div class="row g-4 mt-2">
+
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('history') }}"
+                    class="report-option">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    <h5 class="mt-3">
+                        Prediction History
+                    </h5>
+
+                    <p class="text-muted">
+                        View previous reliability predictions.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('analytics') }}"
+                    class="report-option">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h5 class="mt-3">
+                        Model Performance
+                    </h5>
+
+                    <p class="text-muted">
+                        Compare machine learning algorithms.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('devices') }}"
+                    class="report-option">
+
+                    <i class="fa-solid fa-laptop-medical"></i>
+
+                    <h5 class="mt-3">
+                        Device Report
+                    </h5>
+
+                    <p class="text-muted">
+                        View monitored medical devices.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <hr class="my-5">
+
+
+        <h4>
+            Prediction Summary
+        </h4>
+
+
+        <div class="row mt-4">
+
+
+            <div class="col-md-3">
+
+                <div class="alert alert-primary text-center">
+
+                    <h3>
+                        {{ total_predictions|default(0) }}
+                    </h3>
+
+                    Total
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="alert alert-success text-center">
+
+                    <h3>
+                        {{ low_risk|default(0) }}
+                    </h3>
+
+                    Low Risk
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="alert alert-warning text-center">
+
+                    <h3>
+                        {{ medium_risk|default(0) }}
+                    </h3>
+
+                    Medium Risk
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="alert alert-danger text-center">
+
+                    <h3>
+                        {{ high_risk|default(0) }}
+                    </h3>
+
+                    High Risk
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="text-center mt-4">
+
+            <button
+                onclick="window.print()"
+                class="btn btn-danger">
+
+                <i class="fa-solid fa-print"></i>
+
+                Print Report
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
-
 </html>
