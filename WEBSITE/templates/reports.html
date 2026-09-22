@@ -8,151 +8,576 @@
 
     <title>Reports | Smart Healthcare</title>
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           rel="stylesheet">
 
     <style>
 
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
         body {
-            background: #eef3f8;
+            margin: 0;
+            background: #f3f6fa;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #1f2937;
         }
+
+
+        /* =========================================================
+           PROFESSIONAL SIDEBAR
+        ========================================================= */
 
         .sidebar {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 250px;
             height: 100vh;
-            background: #0d6efd;
-            padding-top: 20px;
+            background: #111827;
+            padding: 22px 14px;
+            overflow-y: auto;
+            z-index: 1000;
         }
 
-        .sidebar h3 {
-            color: white;
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 30px;
+
+        /* Brand */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px 24px;
+            border-bottom: 1px solid #273244;
+            margin-bottom: 20px;
         }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #2563eb;
+            color: white;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        .brand-text h4 {
+            margin: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .brand-text span {
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+
+        /* Sidebar section title */
+
+        .menu-title {
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            padding: 0 12px;
+            margin: 20px 0 8px;
+        }
+
+
+        /* Sidebar links */
 
         .sidebar a {
-            display: block;
-            color: white;
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: #d1d5db;
             text-decoration: none;
-            padding: 14px 25px;
+
+            padding: 11px 12px;
+            margin: 4px 0;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: all 0.2s ease;
         }
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: white;
-            color: #0d6efd;
+
+        .sidebar a i {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
         }
+
+
+        .sidebar a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+
+        /* Active page */
+
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+
+        /* Logout */
+
+        .sidebar a.logout {
+            color: #fca5a5;
+        }
+
+        .sidebar a.logout:hover {
+            background: #7f1d1d;
+            color: white;
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
 
         .main {
             margin-left: 250px;
             padding: 30px;
+            min-height: 100vh;
         }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .page-title p {
+            margin-top: 6px;
+            margin-bottom: 0;
+            color: #6b7280;
+        }
+
+
+        /* User box */
+
+        .user-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            background: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .user-icon {
+            width: 34px;
+            height: 34px;
+
+            background: #e5edff;
+            color: #2563eb;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           REPORT CARD
+        ========================================================= */
 
         .report-card {
             background: white;
             border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.06);
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
         }
 
+
+        .section-title {
+            font-weight: 600;
+            color: #111827;
+        }
+
+
+        /* =========================================================
+           REPORT OPTIONS
+        ========================================================= */
+
         .report-option {
-            border: 1px solid #ddd;
-            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+
             padding: 25px;
+
             text-align: center;
+
             text-decoration: none;
             color: #333;
+
             display: block;
-            transition: .3s;
+
+            height: 100%;
+
+            transition: all 0.25s ease;
         }
+
 
         .report-option:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+            border-color: #2563eb;
         }
+
 
         .report-option i {
             font-size: 35px;
-            color: #0d6efd;
+            color: #2563eb;
+        }
+
+
+        .report-option h5 {
+            color: #111827;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           SUMMARY CARDS
+        ========================================================= */
+
+        .summary-card {
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+
+        .summary-card h3 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+
+        /* =========================================================
+           PRINT
+        ========================================================= */
+
+        @media print {
+
+            .sidebar,
+            .topbar .user-box,
+            .print-button {
+                display: none !important;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 0;
+            }
+
+            body {
+                background: white;
+            }
+
+            .report-card {
+                box-shadow: none;
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
         }
 
     </style>
 
 </head>
 
+
 <body>
 
 
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
 <div class="sidebar">
 
-    <h3>
-        <i class="fa-solid fa-hospital"></i>
-        Smart Healthcare
-    </h3>
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+
+        <div class="brand-text">
+
+            <h4>Smart Healthcare</h4>
+
+            <span>AI Reliability System</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN MENU -->
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
 
     <a href="{{ url_for('dashboard') }}">
-        <i class="fa-solid fa-house"></i>
-        Dashboard
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>Dashboard</span>
+
     </a>
+
 
     <a href="{{ url_for('prediction') }}">
-        <i class="fa-solid fa-brain"></i>
-        AI Prediction
+
+        <i class="fa-solid fa-stethoscope"></i>
+
+        <span>Prediction</span>
+
     </a>
 
-    <a href="{{ url_for('devices') }}">
-        <i class="fa-solid fa-laptop-medical"></i>
-        Devices
-    </a>
-
-    <a href="{{ url_for('history') }}">
-        <i class="fa-solid fa-clock-rotate-left"></i>
-        History
-    </a>
 
     <a href="{{ url_for('analytics') }}">
-        <i class="fa-solid fa-chart-line"></i>
-        Analytics
+
+        <i class="fa-solid fa-chart-pie"></i>
+
+        <span>Analytics</span>
+
     </a>
+
+
+    <a href="{{ url_for('about') }}">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        <span>About Project</span>
+
+    </a>
+
+
+
+    <!-- MANAGEMENT -->
+
+    <div class="menu-title">
+        Management
+    </div>
+
+
+    <a href="{{ url_for('history') }}">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>History</span>
+
+    </a>
+
+
+    <!-- ACTIVE REPORTS -->
 
     <a href="{{ url_for('reports') }}" class="active">
-        <i class="fa-solid fa-file-medical"></i>
-        Reports
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        <span>Reports</span>
+
     </a>
 
+
+    <a href="{{ url_for('devices') }}">
+
+        <i class="fa-solid fa-microchip"></i>
+
+        <span>Devices</span>
+
+    </a>
+
+
+
+    <!-- ACCOUNT -->
+
+    <div class="menu-title">
+        Account
+    </div>
+
+
     <a href="{{ url_for('profile') }}">
+
         <i class="fa-solid fa-user"></i>
-        Profile
+
+        <span>Profile</span>
+
+    </a>
+
+
+    <a href="{{ url_for('logout') }}" class="logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>Logout</span>
+
     </a>
 
 </div>
 
 
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
 <div class="main">
 
-    <h2 class="text-primary">
-        <i class="fa-solid fa-file-medical"></i>
-        Reports
-    </h2>
 
-    <p class="text-muted">
-        View prediction, device and machine learning reports.
-    </p>
+    <!-- TOP BAR -->
+
+    <div class="topbar">
 
 
-    <div class="report-card mt-4">
+        <div class="page-title">
 
-        <h4>
+            <h2>
+                <i class="fa-solid fa-file-lines"></i>
+                Reports
+            </h2>
+
+            <p>
+                View prediction, device and machine learning reports.
+            </p>
+
+        </div>
+
+
+        <div class="user-box">
+
+            <div class="user-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="user-name">
+
+                {{ session.get('username', 'Administrator') }}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         REPORT CONTENT
+    ====================================================== -->
+
+    <div class="report-card">
+
+
+        <h4 class="section-title">
+
             Available Reports
+
         </h4>
+
 
         <div class="row g-4 mt-2">
 
+
+            <!-- Prediction History -->
 
             <div class="col-md-4">
 
@@ -167,13 +592,18 @@
                     </h5>
 
                     <p class="text-muted">
+
                         View previous reliability predictions.
+
                     </p>
 
                 </a>
 
             </div>
 
+
+
+            <!-- Model Performance -->
 
             <div class="col-md-4">
 
@@ -188,7 +618,9 @@
                     </h5>
 
                     <p class="text-muted">
+
                         Compare machine learning algorithms.
+
                     </p>
 
                 </a>
@@ -196,20 +628,25 @@
             </div>
 
 
+
+            <!-- Device Report -->
+
             <div class="col-md-4">
 
                 <a
                     href="{{ url_for('devices') }}"
                     class="report-option">
 
-                    <i class="fa-solid fa-laptop-medical"></i>
+                    <i class="fa-solid fa-microchip"></i>
 
                     <h5 class="mt-3">
                         Device Report
                     </h5>
 
                     <p class="text-muted">
+
                         View monitored medical devices.
+
                     </p>
 
                 </a>
@@ -219,20 +656,30 @@
         </div>
 
 
+
         <hr class="my-5">
 
 
-        <h4>
+
+        <!-- =================================================
+             PREDICTION SUMMARY
+        ================================================== -->
+
+        <h4 class="section-title">
+
             Prediction Summary
+
         </h4>
 
 
         <div class="row mt-4">
 
 
+            <!-- TOTAL -->
+
             <div class="col-md-3">
 
-                <div class="alert alert-primary text-center">
+                <div class="alert alert-primary summary-card">
 
                     <h3>
                         {{ total_predictions|default(0) }}
@@ -245,9 +692,12 @@
             </div>
 
 
+
+            <!-- LOW -->
+
             <div class="col-md-3">
 
-                <div class="alert alert-success text-center">
+                <div class="alert alert-success summary-card">
 
                     <h3>
                         {{ low_risk|default(0) }}
@@ -260,9 +710,12 @@
             </div>
 
 
+
+            <!-- MEDIUM -->
+
             <div class="col-md-3">
 
-                <div class="alert alert-warning text-center">
+                <div class="alert alert-warning summary-card">
 
                     <h3>
                         {{ medium_risk|default(0) }}
@@ -275,9 +728,12 @@
             </div>
 
 
+
+            <!-- HIGH -->
+
             <div class="col-md-3">
 
-                <div class="alert alert-danger text-center">
+                <div class="alert alert-danger summary-card">
 
                     <h3>
                         {{ high_risk|default(0) }}
@@ -292,7 +748,12 @@
         </div>
 
 
-        <div class="text-center mt-4">
+
+        <!-- =================================================
+             PRINT BUTTON
+        ================================================== -->
+
+        <div class="text-center mt-4 print-button">
 
             <button
                 onclick="window.print()"
@@ -306,9 +767,13 @@
 
         </div>
 
+
     </div>
+
 
 </div>
 
+
 </body>
+
 </html>

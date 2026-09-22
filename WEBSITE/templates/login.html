@@ -1,172 +1,2227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Smart Healthcare</title>
+    <title>Smart Healthcare | AI Reliability System</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
 
     <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0d6efd, #00b4d8);
+
+            font-family: "DM Sans", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 75% 20%,
+                    rgba(62, 157, 255, 0.13),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 15% 80%,
+                    rgba(48, 199, 179, 0.09),
+                    transparent 28%
+                ),
+                #f5f9fd;
+
+            color: #11263d;
+
+            overflow: hidden;
         }
+
+
+        /* =====================================================
+           MAIN APP
+        ===================================================== */
+
+        .page {
+
+            width: 100%;
+            height: 100vh;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND GRID
+        ===================================================== */
+
+        .grid {
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(50, 112, 165, 0.045) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(50, 112, 165, 0.045) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 95%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           SOFT LIGHTS
+        ===================================================== */
+
+        .orb {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(2px);
+
+            pointer-events: none;
+        }
+
+
+        .orb-one {
+
+            width: 420px;
+            height: 420px;
+
+            right: -120px;
+            top: -150px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(69, 166, 255, 0.16),
+                    transparent 70%
+                );
+        }
+
+
+        .orb-two {
+
+            width: 350px;
+            height: 350px;
+
+            left: -150px;
+            bottom: -130px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(39, 196, 174, 0.11),
+                    transparent 70%
+                );
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .topbar {
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 82px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            z-index: 20;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0c8de5,
+                    #21b9c4
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(12, 141, 229, 0.20);
+
+            position: relative;
+        }
+
+
+        .brand-icon::before {
+
+            content: "";
+
+            width: 20px;
+            height: 12px;
+
+            border-left: 3px solid white;
+            border-bottom: 3px solid white;
+
+            transform:
+                rotate(-45deg)
+                translate(1px, -1px);
+        }
+
+
+        .brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            line-height: 1.1;
+        }
+
+
+        .brand-name {
+
+            font-family: "Manrope", sans-serif;
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+
+            color: #102d49;
+        }
+
+
+        .brand-subtitle {
+
+            margin-top: 4px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            color: #7090aa;
+
+            text-transform: uppercase;
+        }
+
+
+        .secure-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 14px;
+
+            border: 1px solid rgba(31, 111, 168, 0.10);
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,0.68);
+
+            backdrop-filter: blur(14px);
+
+            color: #668097;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        .secure-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #25bd87;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(37,189,135,0.10);
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                1.2fr
+                0.8fr;
+
+            align-items: center;
+
+            gap: 5%;
+
+            padding:
+                80px 7% 35px;
+
+            z-index: 5;
+        }
+
+
+        /* =====================================================
+           LEFT HERO
+        ===================================================== */
+
+        .hero {
+
+            max-width: 700px;
+
+            padding-left: 2%;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 8px 13px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,0.72);
+
+            border:
+                1px solid
+                rgba(31,111,168,0.10);
+
+            box-shadow:
+                0 10px 30px
+                rgba(28,76,113,0.05);
+
+            color: #4c7d9d;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 27px;
+        }
+
+
+        .eyebrow-pulse {
+
+            width: 7px;
+            height: 7px;
+
+            background: #18bca0;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(24,188,160,0.10);
+        }
+
+
+        .hero h1 {
+
+            font-family: "Manrope", sans-serif;
+
+            font-size:
+                clamp(
+                    44px,
+                    5vw,
+                    76px
+                );
+
+            line-height: 1.02;
+
+            letter-spacing: -3.5px;
+
+            color: #102b45;
+
+            margin-bottom: 25px;
+
+            font-weight: 800;
+        }
+
+
+        .hero h1 span {
+
+            display: block;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #087ed4,
+                    #15aebc,
+                    #287de0
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .hero-description {
+
+            max-width: 560px;
+
+            color: #607b91;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            margin-bottom: 36px;
+        }
+
+
+        /* =====================================================
+           SYSTEM METRICS
+        ===================================================== */
+
+        .metrics {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .metric {
+
+            min-width: 155px;
+
+            padding: 14px 17px;
+
+            border:
+                1px solid
+                rgba(31,111,168,0.09);
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.70);
+
+            backdrop-filter: blur(16px);
+
+            box-shadow:
+                0 12px 35px
+                rgba(30,77,111,0.05);
+        }
+
+
+        .metric-top {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .metric-icon {
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                #edf7fd;
+
+            color: #158ad4;
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        .metric-title {
+
+            font-size: 10px;
+
+            color: #8299aa;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+            font-weight: 700;
+        }
+
+
+        .metric-value {
+
+            font-family: "Manrope", sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            color: #173651;
+        }
+
+
+        /* =====================================================
+           MEDICAL VISUALIZATION
+        ===================================================== */
+
+        .visual-area {
+
+            position: absolute;
+
+            left: 43%;
+
+            bottom: 4%;
+
+            width: 390px;
+
+            height: 200px;
+
+            opacity: 0.78;
+
+            pointer-events: none;
+        }
+
+
+        .scan-ring {
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            left: 40px;
+            top: 15px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(30,133,203,0.18);
+
+            box-shadow:
+
+                0 0 0 18px
+                rgba(30,133,203,0.025),
+
+                0 0 0 38px
+                rgba(30,133,203,0.018);
+        }
+
+
+        .scan-ring::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 28px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid
+                rgba(22,147,207,0.25);
+        }
+
+
+        .scan-ring::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #20a8ca;
+
+            top: 19px;
+            right: 39px;
+
+            box-shadow:
+                0 0 12px
+                rgba(32,168,202,0.65);
+        }
+
+
+        .equipment-line {
+
+            position: absolute;
+
+            left: 5px;
+            right: 0;
+
+            bottom: 26px;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(34,126,185,0.18),
+                    transparent
+                );
+        }
+
+
+        .ecg {
+
+            position: absolute;
+
+            right: 0;
+
+            top: 45px;
+
+            width: 160px;
+
+            height: 50px;
+        }
+
+
+        .ecg svg {
+
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .ecg path {
+
+            fill: none;
+
+            stroke:
+                rgba(18,155,180,0.34);
+
+            stroke-width: 1.6;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 250;
+
+            stroke-dashoffset: 250;
+
+            animation:
+                ecgMove 4s linear infinite;
+        }
+
+
+        @keyframes ecgMove {
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+
+        /* =====================================================
+           LOGIN SECTION
+        ===================================================== */
+
+        .login-wrapper {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            padding-right: 4%;
+        }
+
 
         .login-card {
-            width: 420px;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
+            width: 100%;
+
+            max-width: 430px;
+
+            padding: 38px;
+
+            border-radius: 27px;
+
+            background:
+                rgba(255,255,255,0.78);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.95);
+
+            backdrop-filter: blur(25px);
+
+            box-shadow:
+
+                0 35px 80px
+                rgba(38,79,111,0.12),
+
+                0 8px 25px
+                rgba(38,79,111,0.05);
+
+            position: relative;
+
+            overflow: hidden;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: auto;
+
+        .login-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -100px;
+            top: -110px;
+
             border-radius: 50%;
-            background: #0d6efd;
-            color: white;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(54,164,239,0.13),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .card-header {
+
+            position: relative;
+
+            margin-bottom: 30px;
+        }
+
+
+        .card-status {
+
             display: flex;
+
             align-items: center;
+
+            gap: 8px;
+
+            color: #1b9a78;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .card-status-dot {
+
+            width: 6px;
+            height: 6px;
+
+            background: #20b889;
+
+            border-radius: 50%;
+        }
+
+
+        .card-header h2 {
+
+            font-family: "Manrope", sans-serif;
+
+            font-size: 30px;
+
+            letter-spacing: -1.2px;
+
+            color: #102d47;
+
+            margin-bottom: 8px;
+
+            font-weight: 800;
+        }
+
+
+        .card-header p {
+
+            color: #8094a6;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #476177;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.4px;
+
+            text-transform: uppercase;
+        }
+
+
+        .input-box {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #7b9ab0;
+
+            font-size: 14px;
+
+            z-index: 2;
+        }
+
+
+        .form-input {
+
+            width: 100%;
+
+            height: 53px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid
+                #dce8f0;
+
+            background:
+                rgba(248,251,253,0.90);
+
+            padding:
+                0 45px;
+
+            outline: none;
+
+            color: #18364f;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 13px;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .form-input::placeholder {
+
+            color: #a4b4c0;
+        }
+
+
+        .form-input:focus {
+
+            border-color: #55aee2;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(44,157,218,0.08);
+        }
+
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: none;
+
+            cursor: pointer;
+
+            color: #8ba1b1;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           OPTIONS
+        ===================================================== */
+
+        .form-options {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin: 5px 0 25px;
+        }
+
+
+        .remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #71879a;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .remember input {
+
+            appearance: none;
+
+            width: 15px;
+            height: 15px;
+
+            border:
+                1px solid
+                #cbdbe5;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            position: relative;
+        }
+
+
+        .remember input:checked {
+
+            background: #168ed3;
+
+            border-color: #168ed3;
+        }
+
+
+        .remember input:checked::after {
+
+            content: "✓";
+
+            position: absolute;
+
+            color: white;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            left: 3px;
+
+            top: -1px;
+        }
+
+
+        .forgot {
+
+            text-decoration: none;
+
+            color: #168bd1;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        .forgot:hover {
+
+            color: #096ba9;
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 55px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #087fd0,
+                    #149fc4
+                );
+
+            color: white;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.4px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
             justify-content: center;
-            font-size: 35px;
+
+            gap: 10px;
+
+            box-shadow:
+                0 14px 30px
+                rgba(13,139,204,0.22);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
-        .login-title {
+
+        .login-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 18px 35px
+                rgba(13,139,204,0.28);
+        }
+
+
+        .login-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .arrow {
+
+            font-size: 17px;
+
+            transition:
+                transform 0.2s ease;
+        }
+
+
+        .login-button:hover .arrow {
+
+            transform:
+                translateX(4px);
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .error-message {
+
+            {% if error %}
+            display: flex;
+            {% else %}
+            display: none;
+            {% endif %}
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 11px 13px;
+
+            margin-bottom: 17px;
+
+            border-radius: 11px;
+
+            background: #fff2f2;
+
+            border:
+                1px solid
+                #ffd8d8;
+
+            color: #c34747;
+
+            font-size: 11px;
+
             font-weight: 600;
-            color: #0d6efd;
         }
 
-        .form-control {
-            height: 48px;
-            border-radius: 10px;
+
+        /* =====================================================
+           SECURITY
+        ===================================================== */
+
+        .security {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 21px;
+
+            color: #91a3b1;
+
+            font-size: 10px;
         }
 
-        .login-btn {
-            height: 48px;
-            border-radius: 10px;
+
+        .security-icon {
+
+            color: #5e9a9a;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           SYSTEM OPERATIONAL
+        ===================================================== */
+
+        .system-status {
+
+            margin-top: 24px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid
+                #e6eef3;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .system-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #718798;
+
+            font-size: 10px;
+
             font-weight: 600;
         }
+
+
+        .online {
+
+            width: 7px;
+            height: 7px;
+
+            background: #27b98a;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(39,185,138,0.09);
+        }
+
+
+        .system-version {
+
+            font-size: 9px;
+
+            color: #a1b0bb;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =====================================================
+           FLOATING DATA CARDS
+        ===================================================== */
+
+        .floating-card {
+
+            position: absolute;
+
+            z-index: 4;
+
+            padding: 13px 15px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.72);
+
+            backdrop-filter: blur(15px);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.90);
+
+            box-shadow:
+                0 15px 40px
+                rgba(43,83,113,0.08);
+
+            animation:
+                floatCard 5s ease-in-out infinite;
+        }
+
+
+        .floating-one {
+
+            left: 49%;
+
+            top: 23%;
+
+            animation-delay:
+                -1s;
+        }
+
+
+        .floating-two {
+
+            left: 36%;
+
+            top: 69%;
+
+            animation-delay:
+                -3s;
+        }
+
+
+        .floating-three {
+
+            left: 58%;
+
+            bottom: 8%;
+
+            animation-delay:
+                -2s;
+        }
+
+
+        @keyframes floatCard {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-7px);
+            }
+        }
+
+
+        .float-title {
+
+            font-size: 9px;
+
+            color: #8499a9;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+            font-weight: 700;
+
+            margin-bottom: 4px;
+        }
+
+
+        .float-value {
+
+            font-family: "Manrope", sans-serif;
+
+            color: #153650;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        .float-value span {
+
+            color: #16a389;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .content {
+
+                grid-template-columns:
+                    1fr
+                    430px;
+
+                padding-left: 5%;
+                padding-right: 5%;
+
+                gap: 3%;
+            }
+
+
+            .hero h1 {
+
+                font-size: 52px;
+            }
+
+
+            .floating-one {
+
+                left: 43%;
+            }
+
+
+            .floating-two,
+            .floating-three,
+            .visual-area {
+
+                display: none;
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            body {
+
+                overflow-y: auto;
+            }
+
+
+            .page {
+
+                min-height: 100vh;
+
+                height: auto;
+            }
+
+
+            .topbar {
+
+                position: relative;
+
+                height: 75px;
+
+                padding:
+                    0 25px;
+            }
+
+
+            .secure-label {
+
+                display: none;
+            }
+
+
+            .content {
+
+                height: auto;
+
+                min-height:
+                    calc(100vh - 75px);
+
+                grid-template-columns: 1fr;
+
+                padding:
+                    35px 25px 50px;
+
+                justify-items: center;
+            }
+
+
+            .hero {
+
+                max-width: 650px;
+
+                text-align: center;
+
+                padding: 0;
+            }
+
+
+            .hero h1 {
+
+                font-size: 48px;
+
+                letter-spacing: -2.5px;
+            }
+
+
+            .hero-description {
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .metrics {
+
+                justify-content: center;
+            }
+
+
+            .login-wrapper {
+
+                width: 100%;
+
+                justify-content: center;
+
+                padding: 15px 0 0;
+            }
+
+
+            .floating-card {
+
+                display: none;
+            }
+        }
+
+
+        @media (max-width: 520px) {
+
+            .brand-name {
+
+                font-size: 15px;
+            }
+
+
+            .brand-subtitle {
+
+                font-size: 8px;
+            }
+
+
+            .brand-icon {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .content {
+
+                padding:
+                    25px 18px 40px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 39px;
+
+                letter-spacing: -2px;
+
+                margin-bottom: 18px;
+            }
+
+
+            .hero-description {
+
+                font-size: 14px;
+
+                line-height: 1.7;
+
+                margin-bottom: 25px;
+            }
+
+
+            .metric {
+
+                min-width: 140px;
+            }
+
+
+            .login-card {
+
+                padding: 27px 22px;
+
+                border-radius: 22px;
+            }
+
+
+            .card-header h2 {
+
+                font-size: 26px;
+            }
+
+
+            .form-input {
+
+                height: 51px;
+            }
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="login-card">
 
-    <div class="text-center">
+<div class="page">
 
-        <div class="logo">
-            <i class="fa-solid fa-heart-pulse"></i>
-        </div>
 
-        <h3 class="login-title mt-3">
-            Smart Healthcare
-        </h3>
+    <!-- BACKGROUND -->
 
-        <p class="text-muted">
-            AI-Powered Service Reliability Prediction
-        </p>
+    <div class="grid"></div>
 
-    </div>
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
 
-    {% if error %}
-    <div class="alert alert-danger">
-        {{ error }}
-    </div>
-    {% endif %}
 
-    <form method="POST" action="{{ url_for('login') }}">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-        <div class="mb-3">
+    <header class="topbar">
 
-            <label class="form-label">
-                Username
-            </label>
 
-            <div class="input-group">
+        <div class="brand">
 
-                <span class="input-group-text">
-                    <i class="fa-solid fa-user"></i>
-                </span>
+            <div class="brand-icon"></div>
 
-                <input
-                    type="text"
-                    name="username"
-                    class="form-control"
-                    placeholder="Enter username"
-                    required>
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    SMART HEALTHCARE
+                </div>
+
+                <div class="brand-subtitle">
+                    AI Reliability System
+                </div>
 
             </div>
 
         </div>
 
 
-        <div class="mb-4">
+        <div class="secure-label">
 
-            <label class="form-label">
-                Password
-            </label>
+            <span class="secure-dot"></span>
 
-            <div class="input-group">
+            Secure Clinical Environment
 
-                <span class="input-group-text">
-                    <i class="fa-solid fa-lock"></i>
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-pulse"></span>
+
+                AI-Powered Equipment Intelligence
+
+            </div>
+
+
+            <h1>
+
+                Intelligent Healthcare.
+
+                <span>
+                    Reliable Equipment.
                 </span>
 
-                <input
-                    type="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Enter password"
-                    required>
+            </h1>
+
+
+            <p class="hero-description">
+
+                Predict equipment risk, monitor service reliability,
+                and plan preventive maintenance using intelligent
+                machine learning insights designed for modern
+                healthcare environments.
+
+            </p>
+
+
+            <!-- METRICS -->
+
+            <div class="metrics">
+
+
+                <div class="metric">
+
+                    <div class="metric-top">
+
+                        <div class="metric-icon">
+                            AI
+                        </div>
+
+                        <div class="metric-title">
+                            Risk Prediction
+                        </div>
+
+                    </div>
+
+                    <div class="metric-value">
+                        Intelligent Analysis
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-top">
+
+                        <div class="metric-icon">
+                            ✓
+                        </div>
+
+                        <div class="metric-title">
+                            Reliability
+                        </div>
+
+                    </div>
+
+                    <div class="metric-value">
+                        Equipment Monitoring
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-top">
+
+                        <div class="metric-icon">
+                            ↗
+                        </div>
+
+                        <div class="metric-title">
+                            Maintenance
+                        </div>
+
+                    </div>
+
+                    <div class="metric-value">
+                        Predictive Planning
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             SUBTLE MEDICAL VISUALIZATION
+        ================================================== -->
+
+        <div class="visual-area">
+
+            <div class="scan-ring"></div>
+
+            <div class="equipment-line"></div>
+
+
+            <div class="ecg">
+
+                <svg viewBox="0 0 160 50">
+
+                    <path
+                        d="
+                        M0 27
+                        L22 27
+                        L29 27
+                        L35 15
+                        L42 38
+                        L49 27
+                        L72 27
+                        L80 27
+                        L88 20
+                        L96 32
+                        L105 27
+                        L130 27
+                        L138 27
+                        L145 18
+                        L152 35
+                        L160 27
+                        "
+                    />
+
+                </svg>
 
             </div>
 
         </div>
 
 
-        <button
-            type="submit"
-            class="btn btn-primary w-100 login-btn">
+        <!-- =================================================
+             FLOATING INFORMATION
+        ================================================== -->
 
-            <i class="fa-solid fa-right-to-bracket"></i>
+        <div class="floating-card floating-one">
 
-            Login
+            <div class="float-title">
+                AI Risk Prediction
+            </div>
 
-        </button>
+            <div class="float-value">
+                Real-time <span>Analysis</span>
+            </div>
 
-    </form>
+        </div>
 
 
-    <div class="text-center mt-4">
+        <div class="floating-card floating-two">
 
-        <small class="text-muted">
-            Medical Device Reliability Monitoring System
-        </small>
+            <div class="float-title">
+                Equipment Monitoring
+            </div>
 
-    </div>
+            <div class="float-value">
+                24/7 <span>Monitoring</span>
+            </div>
+
+        </div>
+
+
+        <div class="floating-card floating-three">
+
+            <div class="float-title">
+                Predictive Maintenance
+            </div>
+
+            <div class="float-value">
+                Early <span>Risk Detection</span>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LOGIN
+        ================================================== -->
+
+        <section class="login-wrapper">
+
+
+            <div class="login-card">
+
+
+                <!-- CARD HEADER -->
+
+                <div class="card-header">
+
+                    <div class="card-status">
+
+                        <span class="card-status-dot"></span>
+
+                        System Access
+
+                    </div>
+
+
+                    <h2>
+                        Welcome back
+                    </h2>
+
+
+                    <p>
+                        Sign in to access your intelligent
+                        healthcare reliability platform.
+                    </p>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                {% if error %}
+
+                <div class="error-message">
+
+                    <span>!</span>
+
+                    {{ error }}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     LOGIN FORM
+                ================================================== -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('login') }}"
+                    id="loginForm"
+                >
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Username
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-input"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ◆
+                            </span>
+
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="form-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="form-options">
+
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            Remember me
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot"
+                            onclick="return false;"
+                        >
+                            Forgot password?
+                        </a>
+
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+
+                        <span id="buttonText">
+                            Sign In Securely
+                        </span>
+
+                        <span
+                            class="arrow"
+                            id="buttonArrow"
+                        >
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- SECURITY -->
+
+                <div class="security">
+
+                    <span class="security-icon">
+                        ◆
+                    </span>
+
+                    Protected healthcare environment
+
+                </div>
+
+
+                <!-- SYSTEM STATUS -->
+
+                <div class="system-status">
+
+
+                    <div class="system-left">
+
+                        <span class="online"></span>
+
+                        System Operational
+
+                    </div>
+
+
+                    <div class="system-version">
+
+                        AI RELIABILITY v1.0
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
 
 </div>
 
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       PASSWORD VISIBILITY
+    ========================================================= */
+
+    const password =
+        document.getElementById(
+            "password"
+        );
+
+    const togglePassword =
+        document.getElementById(
+            "togglePassword"
+        );
+
+
+    togglePassword.addEventListener(
+        "click",
+        function () {
+
+            if (
+                password.type === "password"
+            ) {
+
+                password.type = "text";
+
+                togglePassword.textContent =
+                    "Hide";
+
+            }
+
+            else {
+
+                password.type =
+                    "password";
+
+                togglePassword.textContent =
+                    "Show";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       LOGIN LOADING STATE
+    ========================================================= */
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
+
+    const buttonText =
+        document.getElementById(
+            "buttonText"
+        );
+
+    const buttonArrow =
+        document.getElementById(
+            "buttonArrow"
+        );
+
+
+    loginForm.addEventListener(
+        "submit",
+        function () {
+
+            loginButton.disabled =
+                true;
+
+            buttonText.textContent =
+                "Authenticating...";
+
+            buttonArrow.textContent =
+                "•••";
+
+            loginButton.style.opacity =
+                "0.85";
+
+        }
+    );
+
+
+</script>
+
+
 </body>
+
 </html>

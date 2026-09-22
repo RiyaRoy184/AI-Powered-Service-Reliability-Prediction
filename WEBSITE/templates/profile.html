@@ -8,240 +8,1388 @@
 
     <title>Profile | Smart Healthcare</title>
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           rel="stylesheet">
 
     <style>
 
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
         body {
-            background: #eef3f8;
+            margin: 0;
+            background: #f3f6fa;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #1f2937;
         }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
 
         .sidebar {
             position: fixed;
+            top: 0;
+            left: 0;
+
             width: 250px;
             height: 100vh;
-            background: #0d6efd;
-            padding-top: 20px;
+
+            background: #111827;
+
+            padding: 22px 14px;
+
+            overflow-y: auto;
+
+            z-index: 1000;
         }
 
-        .sidebar h3 {
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 8px 12px 24px;
+
+            border-bottom: 1px solid #273244;
+
+            margin-bottom: 20px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            background: #2563eb;
             color: white;
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
 
-        .sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 14px 25px;
-        }
+            border-radius: 10px;
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: white;
-            color: #0d6efd;
-        }
-
-        .main {
-            margin-left: 250px;
-            padding: 30px;
-        }
-
-        .profile-card {
-            background: white;
-            border-radius: 18px;
-            padding: 35px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.06);
-        }
-
-        .profile-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #0d6efd;
-            color: white;
-            margin: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+
+            font-size: 20px;
+        }
+
+        .brand-text h4 {
+            margin: 0;
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .brand-text span {
+            color: #9ca3af;
+
+            font-size: 11px;
+        }
+
+        .menu-title {
+            color: #6b7280;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            padding: 0 12px;
+
+            margin: 20px 0 8px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: #d1d5db;
+
+            text-decoration: none;
+
+            padding: 11px 12px;
+
+            margin: 4px 0;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: all 0.2s ease;
+        }
+
+        .sidebar a i {
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 15px;
+        }
+
+        .sidebar a:hover {
+            background: #1f2937;
+
+            color: white;
+        }
+
+        .sidebar a.active {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .sidebar a.logout {
+            color: #fca5a5;
+        }
+
+        .sidebar a.logout:hover {
+            background: #7f1d1d;
+
+            color: white;
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .main {
+            margin-left: 250px;
+
+            padding: 30px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
+        .topbar {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            margin: 0;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+        .page-title p {
+            margin-top: 6px;
+
+            margin-bottom: 0;
+
+            color: #6b7280;
+        }
+
+        .user-box {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: white;
+
+            padding: 8px 14px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .user-icon-small {
+            width: 34px;
+            height: 34px;
+
+            background: #e5edff;
+
+            color: #2563eb;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-name {
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           PROFILE CONTAINER
+        ========================================================= */
+
+        .profile-container {
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+
+        /* =========================================================
+           PROFILE HEADER
+        ========================================================= */
+
+        .profile-header {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+        .profile-header-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .profile-icon {
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 36px;
+
+            box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+        }
+
+        .profile-name {
+            color: #111827;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: #6b7280;
+
+            margin-bottom: 8px;
+        }
+
+        .status {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            font-size: 12px;
+
+            color: #15803d;
+
+            font-weight: 600;
+
+            background: #f0fdf4;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            background: #22c55e;
+
+            border-radius: 50%;
+        }
+
+
+        /* =========================================================
+           EDIT BUTTON
+        ========================================================= */
+
+        .edit-btn {
+            background: #2563eb;
+
+            border: none;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .edit-btn:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           CONTENT CARDS
+        ========================================================= */
+
+        .content-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 17px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            margin-bottom: 5px;
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        .form-label {
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #374151;
+
+            margin-bottom: 7px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #dbe2ea;
+
+            border-radius: 9px;
+
+            padding: 11px 12px;
+
+            background: #f9fafb;
+
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+
+            background: white;
+        }
+
+        .form-control[readonly] {
+            background: #f3f4f6;
+
+            color: #6b7280;
+
+            cursor: default;
+        }
+
+        .input-group-text {
+            background: #f9fafb;
+
+            border: 1px solid #dbe2ea;
+
+            border-right: none;
+
+            color: #6b7280;
+        }
+
+        .input-group .form-control,
+        .input-group .form-select {
+            border-left: none;
+        }
+
+
+        /* =========================================================
+           DISABLED ROLE DROPDOWN
+        ========================================================= */
+
+        .form-select:disabled {
+            background-color: #f3f4f6;
+
+            color: #6b7280;
+
+            opacity: 1;
+
+            cursor: default;
+        }
+
+
+        /* =========================================================
+           SAVE / CANCEL BUTTONS
+        ========================================================= */
+
+        .edit-actions {
+            display: none;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e5e7eb;
+
+            gap: 10px;
+        }
+
+        .save-btn {
+            background: #2563eb;
+
+            border: none;
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .cancel-btn {
+            background: #f3f4f6;
+
+            border: 1px solid #d1d5db;
+
+            color: #374151;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+        .cancel-btn:hover {
+            background: #e5e7eb;
+        }
+
+
+        /* =========================================================
+           ACCOUNT INFORMATION
+        ========================================================= */
+
+        .account-item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #eef1f5;
+        }
+
+        .account-item:last-child {
+            border-bottom: none;
+        }
+
+        .account-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .account-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 9px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .account-label {
+            font-size: 13px;
+
+            color: #6b7280;
+        }
+
+        .account-value {
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #111827;
+        }
+
+
+        /* =========================================================
+           INFORMATION BOX
+        ========================================================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            color: #1e40af;
+
+            border-radius: 12px;
+
+            padding: 16px 18px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+            .profile-header-left {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .profile-icon {
+                margin: auto;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
 
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
 <div class="sidebar">
 
-    <h3>
-        <i class="fa-solid fa-hospital"></i>
-        Smart Healthcare
-    </h3>
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <div class="brand-icon">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h4>Smart Healthcare</h4>
+
+            <span>AI Reliability System</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN MENU -->
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
 
     <a href="{{ url_for('dashboard') }}">
-        <i class="fa-solid fa-house"></i>
-        Dashboard
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>Dashboard</span>
+
     </a>
+
 
     <a href="{{ url_for('prediction') }}">
-        <i class="fa-solid fa-brain"></i>
-        AI Prediction
+
+        <i class="fa-solid fa-stethoscope"></i>
+
+        <span>Prediction</span>
+
     </a>
 
-    <a href="{{ url_for('devices') }}">
-        <i class="fa-solid fa-laptop-medical"></i>
-        Devices
-    </a>
-
-    <a href="{{ url_for('history') }}">
-        <i class="fa-solid fa-clock-rotate-left"></i>
-        History
-    </a>
 
     <a href="{{ url_for('analytics') }}">
-        <i class="fa-solid fa-chart-line"></i>
-        Analytics
+
+        <i class="fa-solid fa-chart-pie"></i>
+
+        <span>Analytics</span>
+
     </a>
+
+
+    <a href="{{ url_for('about') }}">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        <span>About Project</span>
+
+    </a>
+
+
+    <!-- MANAGEMENT -->
+
+    <div class="menu-title">
+        Management
+    </div>
+
+
+    <a href="{{ url_for('history') }}">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>History</span>
+
+    </a>
+
 
     <a href="{{ url_for('reports') }}">
-        <i class="fa-solid fa-file-medical"></i>
-        Reports
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        <span>Reports</span>
+
     </a>
 
+
+    <a href="{{ url_for('devices') }}">
+
+        <i class="fa-solid fa-microchip"></i>
+
+        <span>Devices</span>
+
+    </a>
+
+
+    <!-- ACCOUNT -->
+
+    <div class="menu-title">
+        Account
+    </div>
+
+
     <a href="{{ url_for('profile') }}" class="active">
+
         <i class="fa-solid fa-user"></i>
-        Profile
+
+        <span>Profile</span>
+
+    </a>
+
+
+    <a href="{{ url_for('logout') }}" class="logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>Logout</span>
+
     </a>
 
 </div>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <div class="main">
 
-    <h2 class="text-primary">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </h2>
 
-    <p class="text-muted">
-        System administrator profile.
-    </p>
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="page-title">
+
+            <h2>
+
+                <i class="fa-solid fa-user"></i>
+
+                Profile
+
+            </h2>
+
+            <p>
+                Manage your account and system profile.
+            </p>
+
+        </div>
 
 
-    <div class="profile-card mt-4">
+        <div class="user-box">
 
-        <div class="text-center">
-
-            <div class="profile-icon">
+            <div class="user-icon-small">
 
                 <i class="fa-solid fa-user"></i>
 
             </div>
 
 
-            <h3 class="mt-3">
+            <div class="user-name">
 
                 {{ username|default("Administrator") }}
 
-            </h3>
-
-
-            <p class="text-muted">
-                Hospital Administrator
-            </p>
-
-        </div>
-
-
-        <hr class="my-4">
-
-
-        <div class="row">
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-                    Username
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="{{ username|default('Administrator') }}"
-                    readonly>
-
             </div>
-
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-                    Role
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="Administrator"
-                    readonly>
-
-            </div>
-
-
-            <div class="col-md-6">
-
-                <label class="form-label">
-                    System
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="AI Healthcare Reliability Prediction"
-                    readonly>
-
-            </div>
-
-
-            <div class="col-md-6">
-
-                <label class="form-label">
-                    Model
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="Machine Learning"
-                    readonly>
-
-            </div>
-
-        </div>
-
-
-        <div class="alert alert-info mt-4">
-
-            <i class="fa-solid fa-circle-info"></i>
-
-            This system predicts medical device risk and provides
-            maintenance recommendations to support healthcare
-            equipment management.
 
         </div>
 
     </div>
 
+
+    <!-- =====================================================
+         PROFILE CONTAINER
+    ====================================================== -->
+
+    <div class="profile-container">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+
+            <div class="profile-header-left">
+
+
+                <div class="profile-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="profile-name">
+
+                        {{ username|default("Administrator") }}
+
+                    </h3>
+
+
+                    <!-- ROLE NOW COMES FROM USER -->
+
+                    <p class="profile-role" id="headerRole">
+
+                        {{ role|default("Hospital Administrator") }}
+
+                    </p>
+
+
+                    <div class="status">
+
+                        <span class="status-dot"></span>
+
+                        Active Account
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EDIT BUTTON -->
+
+            <button
+                type="button"
+                class="edit-btn"
+                onclick="enableEdit()">
+
+                <i class="fa-solid fa-pen me-2"></i>
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             PERSONAL INFORMATION
+        ================================================== -->
+
+        <div class="content-card">
+
+
+            <div class="section-title">
+
+                Personal Information
+
+            </div>
+
+
+            <div class="section-subtitle">
+
+                View and manage your account information.
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('profile') }}"
+                id="profileForm">
+
+
+                <div class="row g-4">
+
+
+                    <!-- USERNAME -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Username
+
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                class="form-control"
+                                value="{{ username|default('Administrator') }}"
+                                readonly
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Email Address
+
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="fa-solid fa-envelope"></i>
+
+                            </span>
+
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                class="form-control"
+                                value="{{ email|default('admin@smarthealthcare.com') }}"
+                                readonly
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ROLE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Role
+
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                            </span>
+
+
+                            <select
+                                name="role"
+                                id="role"
+                                class="form-select"
+                                disabled
+                                required>
+
+                                <option value="Hospital Administrator"
+                                    {% if role|default('Hospital Administrator') == 'Hospital Administrator' %}
+                                    selected
+                                    {% endif %}>
+                                    Hospital Administrator
+                                </option>
+
+                                <!-- <option value="Doctor"
+                                    {% if role|default('') == 'Doctor' %}
+                                    selected
+                                    {% endif %}>
+                                    Doctor
+                                </option>
+
+                                <option value="Nurse"
+                                    {% if role|default('') == 'Nurse' %}
+                                    selected
+                                    {% endif %}>
+                                    Nurse
+                                </option> -->
+
+                                <!-- <option value="Technician"
+                                    {% if role|default('') == 'Technician' %}
+                                    selected
+                                    {% endif %}>
+                                    Technician
+                                </option> -->
+
+                                <option value="Biomedical Engineer"
+                                    {% if role|default('') == 'Biomedical Engineer' %}
+                                    selected
+                                    {% endif %}>
+                                    Biomedical Engineer
+                                </option>
+
+                                <option value="Maintenance Staff"
+                                    {% if role|default('') == 'Maintenance Staff' %}
+                                    selected
+                                    {% endif %}>
+                                    Maintenance Staff
+                                </option>
+
+                                <!-- <option value="Healthcare Staff"
+                                    {% if role|default('') == 'Healthcare Staff' %}
+                                    selected
+                                    {% endif %}>
+                                    Healthcare Staff
+                                </option> -->
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SYSTEM -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            System
+
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="fa-solid fa-server"></i>
+
+                            </span>
+
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="AI Healthcare Reliability Prediction"
+                                readonly>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- EDIT ACTIONS -->
+
+                <div class="edit-actions" id="editActions">
+
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        <i class="fa-solid fa-check me-2"></i>
+
+                        Save Changes
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="cancelEdit()">
+
+                        <i class="fa-solid fa-xmark me-2"></i>
+
+                        Cancel
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- =================================================
+             ACCOUNT INFORMATION
+        ================================================== -->
+
+        <div class="content-card">
+
+
+            <div class="section-title">
+
+                Account Information
+
+            </div>
+
+
+            <div class="section-subtitle">
+
+                System account and access details.
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="account-item">
+
+                <div class="account-left">
+
+                    <div class="account-icon">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="account-label">
+
+                            Account Status
+
+                        </div>
+
+                        <div class="account-value">
+
+                            Active
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <span class="badge bg-success">
+
+                    Active
+
+                </span>
+
+            </div>
+
+
+            <!-- ACCESS -->
+
+            <div class="account-item">
+
+                <div class="account-left">
+
+                    <div class="account-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="account-label">
+
+                            Access Level
+
+                        </div>
+
+                        <div class="account-value" id="accessLevel">
+
+                            {{ role|default("Hospital Administrator") }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODEL -->
+
+            <div class="account-item">
+
+                <div class="account-left">
+
+                    <div class="account-icon">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="account-label">
+
+                            Prediction Model
+
+                        </div>
+
+                        <div class="account-value">
+
+                            Machine Learning
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             INFORMATION
+        ================================================== -->
+
+        <div class="info-box">
+
+            <i class="fa-solid fa-circle-info me-2"></i>
+
+            <strong>About your account:</strong>
+
+            This profile is used to manage access to the
+            AI-Powered Service Reliability Prediction system.
+            The system analyzes healthcare equipment information
+            and provides risk predictions, reliability scores,
+            and maintenance recommendations.
+
+        </div>
+
+
+    </div>
+
 </div>
 
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    function enableEdit() {
+    document.getElementById("username").readOnly = true;
+    document.getElementById("email").readOnly = false;
+    document.getElementById("role").disabled = false;
+
+    document.getElementById("editActions").style.display = "flex";
+
+    document.getElementById("email").focus();
+}
+
+
+    function cancelEdit() {
+
+        // Disable username
+        document.getElementById("username").readOnly = true;
+
+        // Disable email
+        document.getElementById("email").readOnly = true;
+
+        // Disable role dropdown
+        document.getElementById("role").disabled = true;
+
+        // Hide buttons
+        document.getElementById("editActions").style.display = "none";
+
+        // Reload original values
+        location.reload();
+    }
+
+
+    // Update displayed role when the dropdown changes
+    document.getElementById("role").addEventListener("change", function () {
+
+        document.getElementById("headerRole").textContent = this.value;
+
+        document.getElementById("accessLevel").textContent = this.value;
+
+    });
+
+</script>
+
+
 </body>
+
 </html>
