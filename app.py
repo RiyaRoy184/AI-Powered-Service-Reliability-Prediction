@@ -9,8 +9,7 @@ from flask import (
     request,
     redirect,
     url_for,
-    session,
-    jsonify
+    session
 )
 
 import pandas as pd
@@ -340,7 +339,9 @@ def get_prediction_statistics():
     cursor = conn.cursor()
 
 
+    # --------------------------------------------------------
     # Total predictions
+    # --------------------------------------------------------
 
     cursor.execute("""
         SELECT COUNT(*)
@@ -350,7 +351,9 @@ def get_prediction_statistics():
     total_predictions = cursor.fetchone()[0]
 
 
+    # --------------------------------------------------------
     # Low Risk
+    # --------------------------------------------------------
 
     cursor.execute("""
         SELECT COUNT(*)
@@ -361,7 +364,9 @@ def get_prediction_statistics():
     low_risk = cursor.fetchone()[0]
 
 
+    # --------------------------------------------------------
     # Medium Risk
+    # --------------------------------------------------------
 
     cursor.execute("""
         SELECT COUNT(*)
@@ -372,7 +377,9 @@ def get_prediction_statistics():
     medium_risk = cursor.fetchone()[0]
 
 
+    # --------------------------------------------------------
     # High Risk
+    # --------------------------------------------------------
 
     cursor.execute("""
         SELECT COUNT(*)
@@ -383,7 +390,9 @@ def get_prediction_statistics():
     high_risk = cursor.fetchone()[0]
 
 
+    # --------------------------------------------------------
     # Average Reliability
+    # --------------------------------------------------------
 
     cursor.execute("""
         SELECT AVG(reliability_score)
@@ -495,14 +504,18 @@ def convert_encoder_value(
     )
 
 
+    # --------------------------------------------------------
     # Direct match
+    # --------------------------------------------------------
 
     if value in classes:
 
         return value
 
 
+    # --------------------------------------------------------
     # String comparison
+    # --------------------------------------------------------
 
     for item in classes:
 
@@ -511,11 +524,15 @@ def convert_encoder_value(
             return item
 
 
+    # --------------------------------------------------------
     # Numeric comparison
+    # --------------------------------------------------------
 
     try:
 
-        numeric_value = float(value)
+        numeric_value = float(
+            value
+        )
 
         for item in classes:
 
@@ -641,9 +658,6 @@ def login():
 
             session["logged_in"] = True
 
-            # Keep login username separate
-            # from profile information
-
             session["login_username"] = "admin"
 
             return redirect(
@@ -754,6 +768,10 @@ def predict():
         )
 
 
+    # ========================================================
+    # CHECK MODEL
+    # ========================================================
+
     if model is None:
 
         return render_template(
@@ -769,87 +787,365 @@ def predict():
     try:
 
         # ====================================================
-        # GET FORM VALUES
+        # GET BASIC FORM VALUES
         # ====================================================
 
         device_type = request.form.get(
             "Device_Type",
             ""
-        )
+        ).strip()
 
         age = request.form.get(
             "Age",
             ""
-        )
+        ).strip()
 
         manufacturer = request.form.get(
             "Manufacturer",
             ""
-        )
+        ).strip()
 
         model_name = request.form.get(
             "Model",
             ""
-        )
+        ).strip()
 
         country = request.form.get(
             "Country",
             ""
-        )
+        ).strip()
 
         maintenance_cost = request.form.get(
             "Maintenance_Cost",
             ""
-        )
+        ).strip()
 
         downtime = request.form.get(
             "Downtime",
             ""
-        )
+        ).strip()
 
         maintenance_frequency = request.form.get(
             "Maintenance_Frequency",
             ""
-        )
+        ).strip()
 
         failure_event_count = request.form.get(
             "Failure_Event_Count",
             ""
-        )
+        ).strip()
 
         maintenance_class = request.form.get(
             "Maintenance_Class",
             ""
-        )
+        ).strip()
 
         operational_hours = request.form.get(
             "Operational_Hours_Est",
             ""
-        )
+        ).strip()
 
         expected_lifespan = request.form.get(
             "Expected_Lifespan_Est",
             ""
+        ).strip()
+
+
+        # ====================================================
+        # CHECK REQUIRED VALUES
+        # ====================================================
+
+        required_values = {
+
+            "Device Type":
+                device_type,
+
+            "Age":
+                age,
+
+            "Manufacturer":
+                manufacturer,
+
+            "Model":
+                model_name,
+
+            "Country":
+                country,
+
+            "Maintenance Cost":
+                maintenance_cost,
+
+            "Downtime":
+                downtime,
+
+            "Maintenance Frequency":
+                maintenance_frequency,
+
+            "Failure Event Count":
+                failure_event_count,
+
+            "Maintenance Class":
+                maintenance_class,
+
+            "Operational Hours":
+                operational_hours,
+
+            "Expected Lifespan":
+                expected_lifespan
+
+        }
+
+
+        for field_name, field_value in required_values.items():
+
+            if field_value == "":
+
+                raise ValueError(
+                    f"{field_name} is required."
+                )
+
+
+        # ====================================================
+        # CONVERT BASIC NUMERIC VALUES
+        # ====================================================
+
+        age_value = float(
+            age
         )
 
-        mtbf = request.form.get(
-            "MTBF",
-            ""
+        maintenance_cost_value = float(
+            maintenance_cost
         )
 
-        cost_per_hour = request.form.get(
-            "Cost_Per_Hour",
-            ""
+        downtime_value = float(
+            downtime
         )
 
-        lifespan_usage_ratio = request.form.get(
-            "Lifespan_Usage_Ratio",
-            ""
+        maintenance_frequency_value = int(
+            maintenance_frequency
+        )
+
+        failure_event_count_value = int(
+            failure_event_count
+        )
+
+        maintenance_class_value = int(
+            maintenance_class
+        )
+
+        operational_hours_value = float(
+            operational_hours
+        )
+
+        expected_lifespan_value = float(
+            expected_lifespan
         )
 
 
         # ====================================================
-        # CREATE DATAFRAME
+        # SERVER-SIDE VALIDATION
+        # ====================================================
+
+        # Age
+
+        if age_value < 0:
+
+            raise ValueError(
+                "Age cannot be negative."
+            )
+
+
+        # Maintenance Cost
+
+        if maintenance_cost_value < 0:
+
+            raise ValueError(
+                "Maintenance Cost cannot be negative."
+            )
+
+
+        # Downtime
+
+        if downtime_value < 0:
+
+            raise ValueError(
+                "Downtime cannot be negative."
+            )
+
+
+        # Failure Event Count
+
+        if failure_event_count_value < 0:
+
+            raise ValueError(
+                "Failure Event Count cannot be negative."
+            )
+
+
+        # Operational Hours
+
+        if (
+            operational_hours_value < 0
+            or
+            operational_hours_value > 108469
+        ):
+
+            raise ValueError(
+                "Operational Hours must be between 0 and 108469."
+            )
+
+
+        # Expected Lifespan
+
+        if expected_lifespan_value != 12:
+
+            raise ValueError(
+                "Expected Lifespan must be 12 years."
+            )
+
+
+        # Maintenance Frequency
+
+        if (
+            maintenance_frequency_value < 1
+            or
+            maintenance_frequency_value > 5
+        ):
+
+            raise ValueError(
+                "Maintenance Frequency must be between 1 and 5."
+            )
+
+
+        # Maintenance Class
+
+        if (
+            maintenance_class_value < 1
+            or
+            maintenance_class_value > 3
+        ):
+
+            raise ValueError(
+                "Maintenance Class must be between 1 and 3."
+            )
+
+
+        # ====================================================
+        # AUTO-CALCULATE DERIVED FEATURES
+        # ====================================================
+
+        # ----------------------------------------------------
+        # MTBF
+        #
+        # Current application formula:
+        #
+        # Operational Hours
+        # -----------------------------
+        # Failure Events + 1
+        # ----------------------------------------------------
+
+        mtbf_value = (
+            operational_hours_value
+            /
+            (
+                failure_event_count_value
+                + 1
+            )
+        )
+
+
+        # ----------------------------------------------------
+        # COST PER HOUR
+        #
+        # Maintenance Cost
+        # -----------------------------
+        # Operational Hours
+        # ----------------------------------------------------
+
+        if operational_hours_value > 0:
+
+            cost_per_hour_value = (
+                maintenance_cost_value
+                /
+                operational_hours_value
+            )
+
+        else:
+
+            cost_per_hour_value = 0
+
+
+        # ----------------------------------------------------
+        # LIFESPAN USAGE RATIO
+        #
+        # Age
+        # -----------------------------
+        # Expected Lifespan
+        # ----------------------------------------------------
+
+        if expected_lifespan_value > 0:
+
+            lifespan_usage_ratio_value = (
+                age_value
+                /
+                expected_lifespan_value
+            )
+
+        else:
+
+            lifespan_usage_ratio_value = 0
+
+
+        # ====================================================
+        # ROUND DERIVED VALUES
+        # ====================================================
+
+        mtbf = round(
+            mtbf_value
+        )
+
+        cost_per_hour = round(
+            cost_per_hour_value,
+            2
+        )
+
+        lifespan_usage_ratio = round(
+            lifespan_usage_ratio_value,
+            2
+        )
+
+
+        print()
+        print(
+            "----------------------------------------------"
+        )
+
+        print(
+            "AUTO-CALCULATED VALUES"
+        )
+
+        print(
+            "MTBF:",
+            mtbf
+        )
+
+        print(
+            "Cost Per Hour:",
+            cost_per_hour
+        )
+
+        print(
+            "Lifespan Usage Ratio:",
+            lifespan_usage_ratio
+        )
+
+        print(
+            "----------------------------------------------"
+        )
+
+
+        # ====================================================
+        # CREATE MACHINE LEARNING DATAFRAME
         # ====================================================
 
         input_data = {
@@ -859,7 +1155,7 @@ def predict():
             ],
 
             "Age": [
-                float(age)
+                age_value
             ],
 
             "Manufacturer": [
@@ -875,43 +1171,43 @@ def predict():
             ],
 
             "Maintenance_Cost": [
-                float(maintenance_cost)
+                maintenance_cost_value
             ],
 
             "Downtime": [
-                float(downtime)
+                downtime_value
             ],
 
             "Maintenance_Frequency": [
-                int(maintenance_frequency)
+                maintenance_frequency_value
             ],
 
             "Failure_Event_Count": [
-                int(failure_event_count)
+                failure_event_count_value
             ],
 
             "Maintenance_Class": [
-                int(maintenance_class)
+                maintenance_class_value
             ],
 
             "Operational_Hours_Est": [
-                float(operational_hours)
+                operational_hours_value
             ],
 
             "Expected_Lifespan_Est": [
-                float(expected_lifespan)
+                expected_lifespan_value
             ],
 
             "MTBF": [
-                float(mtbf)
+                mtbf
             ],
 
             "Cost_Per_Hour": [
-                float(cost_per_hour)
+                cost_per_hour
             ],
 
             "Lifespan_Usage_Ratio": [
-                float(lifespan_usage_ratio)
+                lifespan_usage_ratio
             ]
 
         }
@@ -923,7 +1219,7 @@ def predict():
 
 
         # ====================================================
-        # ENCODE DATA
+        # ENCODE CATEGORICAL DATA
         # ====================================================
 
         input_df = encode_input(
@@ -932,7 +1228,7 @@ def predict():
 
 
         # ====================================================
-        # MATCH MODEL FEATURE ORDER
+        # MATCH TRAINING FEATURE ORDER
         # ====================================================
 
         if hasattr(
@@ -950,7 +1246,7 @@ def predict():
 
 
         # ====================================================
-        # MODEL PREDICTION
+        # MACHINE LEARNING PREDICTION
         # ====================================================
 
         prediction_value = model.predict(
@@ -999,7 +1295,7 @@ def predict():
 
 
         # ====================================================
-        # SAVE PREDICTION
+        # PREPARE DATABASE DATA
         # ====================================================
 
         prediction_data = {
@@ -1008,7 +1304,7 @@ def predict():
                 device_type,
 
             "age":
-                float(age),
+                age_value,
 
             "manufacturer":
                 manufacturer,
@@ -1020,34 +1316,34 @@ def predict():
                 country,
 
             "maintenance_cost":
-                float(maintenance_cost),
+                maintenance_cost_value,
 
             "downtime":
-                float(downtime),
+                downtime_value,
 
             "maintenance_frequency":
-                int(maintenance_frequency),
+                maintenance_frequency_value,
 
             "failure_event_count":
-                int(failure_event_count),
+                failure_event_count_value,
 
             "maintenance_class":
-                int(maintenance_class),
+                maintenance_class_value,
 
             "operational_hours":
-                float(operational_hours),
+                operational_hours_value,
 
             "expected_lifespan":
-                float(expected_lifespan),
+                expected_lifespan_value,
 
             "mtbf":
-                float(mtbf),
+                mtbf,
 
             "cost_per_hour":
-                float(cost_per_hour),
+                cost_per_hour,
 
             "lifespan_usage_ratio":
-                float(lifespan_usage_ratio),
+                lifespan_usage_ratio,
 
             "risk_level":
                 risk_info["risk"],
@@ -1066,13 +1362,17 @@ def predict():
         }
 
 
+        # ====================================================
+        # SAVE PREDICTION
+        # ====================================================
+
         save_prediction(
             prediction_data
         )
 
 
         # ====================================================
-        # RESULT PAGE
+        # DISPLAY RESULT
         # ====================================================
 
         return render_template(
@@ -1081,7 +1381,8 @@ def predict():
 
             device=device_type,
 
-            risk=risk_info["risk"],
+            risk=
+                risk_info["risk"],
 
             reliability=
                 risk_info["reliability"],
@@ -1104,7 +1405,7 @@ def predict():
                     device_type,
 
                 "Age":
-                    age,
+                    age_value,
 
                 "Manufacturer":
                     manufacturer,
@@ -1116,25 +1417,25 @@ def predict():
                     country,
 
                 "Maintenance Cost":
-                    maintenance_cost,
+                    maintenance_cost_value,
 
                 "Downtime":
-                    downtime,
+                    downtime_value,
 
                 "Maintenance Frequency":
-                    maintenance_frequency,
+                    maintenance_frequency_value,
 
                 "Failure Event Count":
-                    failure_event_count,
+                    failure_event_count_value,
 
                 "Maintenance Class":
-                    maintenance_class,
+                    maintenance_class_value,
 
                 "Operational Hours":
-                    operational_hours,
+                    operational_hours_value,
 
                 "Expected Lifespan":
-                    expected_lifespan,
+                    expected_lifespan_value,
 
                 "MTBF":
                     mtbf,
@@ -1150,12 +1451,18 @@ def predict():
         )
 
 
+    # ========================================================
+    # ERROR HANDLING
+    # ========================================================
+
     except Exception as e:
 
+        print()
         print(
             "Prediction Error:",
             e
         )
+
 
         return render_template(
 
@@ -1401,18 +1708,12 @@ def devices():
 # ============================================================
 # PROFILE PAGE
 # ============================================================
-# IMPORTANT:
-# methods=["GET", "POST"] allows the Save Changes button
-# to submit the form using POST.
-# ============================================================
 
 @app.route(
     "/profile",
     methods=["GET", "POST"]
 )
 def profile():
-
-    # Check login
 
     if not check_login():
 
@@ -1427,15 +1728,11 @@ def profile():
 
     if request.method == "POST":
 
-        # Get existing profile information
-
         profile_data = session.get(
             "profile_data",
             {}
         ).copy()
 
-
-        # Get email
 
         email = request.form.get(
             "email",
@@ -1443,27 +1740,22 @@ def profile():
         ).strip()
 
 
-        # Get role
-
         role = request.form.get(
             "role",
             "Hospital Administrator"
         ).strip()
 
 
-        # ----------------------------------------------------
-        # Save only profile information
-        # Login username and password are NOT changed.
-        # ----------------------------------------------------
+        # Save profile information only
 
         profile_data["email"] = email
 
         profile_data["role"] = role
 
 
-        # Save profile information in session
-
-        session["profile_data"] = profile_data
+        session["profile_data"] = (
+            profile_data
+        )
 
         session.modified = True
 
@@ -1472,8 +1764,6 @@ def profile():
             "Profile updated successfully."
         )
 
-
-        # Return to profile page
 
         return redirect(
             url_for("profile")
@@ -1490,8 +1780,6 @@ def profile():
     )
 
 
-    # Login username always remains admin
-
     login_username = session.get(
         "login_username",
         "admin"
@@ -1502,17 +1790,20 @@ def profile():
 
         "profile.html",
 
-        username=login_username,
+        username=
+            login_username,
 
-        email=profile_data.get(
-            "email",
-            "admin@smarthealthcare.com"
-        ),
+        email=
+            profile_data.get(
+                "email",
+                "admin@smarthealthcare.com"
+            ),
 
-        role=profile_data.get(
-            "role",
-            "Hospital Administrator"
-        )
+        role=
+            profile_data.get(
+                "role",
+                "Hospital Administrator"
+            )
 
     )
 
@@ -1563,7 +1854,9 @@ def health():
 
 if __name__ == "__main__":
 
+    # --------------------------------------------------------
     # Initialize database
+    # --------------------------------------------------------
 
     init_db()
 
