@@ -1506,16 +1506,132 @@ def history():
         )
 
 
-    history_data = (
-        get_prediction_history()
+    # --------------------------------------------------------
+    # HISTORY FILTERS
+    # Device is a dropdown because the project uses a fixed
+    # set of healthcare device categories.
+    # --------------------------------------------------------
+
+    device_filter = request.args.get("device", "").strip()
+    risk_filter = request.args.get("risk", "").strip()
+    date_filter = request.args.get("date", "").strip()
+
+    query = """
+        SELECT *
+        FROM predictions
+        WHERE 1=1
+    """
+
+    params = []
+
+    if device_filter:
+
+        query += """
+            AND device_type = ?
+        """
+
+        params.append(device_filter)
+
+
+    if risk_filter:
+
+        query += """
+            AND risk_level = ?
+        """
+
+        params.append(risk_filter)
+
+
+    if date_filter:
+
+        query += """
+            AND (
+                substr(created_at, 7, 4)
+                || '-' ||
+                substr(created_at, 4, 2)
+                || '-' ||
+                substr(created_at, 1, 2)
+            ) = ?
+        """
+
+        params.append(date_filter)
+
+
+    query += """
+        ORDER BY id DESC
+    """
+
+
+    conn = sqlite3.connect(
+        DATABASE_PATH
     )
+
+    conn.row_factory = sqlite3.Row
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        query,
+        params
+    )
+
+    history_data = cursor.fetchall()
+
+
+    # --------------------------------------------------------
+    # AVAILABLE DATES
+    # --------------------------------------------------------
+
+    cursor.execute("""
+        SELECT DISTINCT
+            substr(created_at, 7, 4)
+            || '-' ||
+            substr(created_at, 4, 2)
+            || '-' ||
+            substr(created_at, 1, 2) AS prediction_date
+        FROM predictions
+        WHERE created_at IS NOT NULL
+        ORDER BY prediction_date DESC
+    """)
+
+    available_dates = [
+        row["prediction_date"]
+        for row in cursor.fetchall()
+    ]
+
+
+    conn.close()
+
+
+    # --------------------------------------------------------
+    # FIXED DEVICE OPTIONS
+    # --------------------------------------------------------
+
+    device_options = [
+        "MRI Scanner",
+        "CT Scanner",
+        "PET Scanner",
+        "X-Ray Machine",
+        "Defibrillator",
+        "Infusion Pump"
+    ]
 
 
     return render_template(
 
         "history.html",
 
-        history=history_data
+        history=history_data,
+
+        device_filter=device_filter,
+
+        risk_filter=risk_filter,
+
+        date_filter=date_filter,
+
+        available_dates=available_dates,
+
+        device_options=device_options
 
     )
 
@@ -1547,6 +1663,13 @@ def clear_history():
 
         cursor.execute("""
             DELETE FROM predictions
+        """)
+
+        # Reset SQLite AUTOINCREMENT so the next prediction starts
+        # again from ID 1 after Clear History.
+        cursor.execute("""
+            DELETE FROM sqlite_sequence
+            WHERE name = 'predictions'
         """)
 
         conn.commit()
