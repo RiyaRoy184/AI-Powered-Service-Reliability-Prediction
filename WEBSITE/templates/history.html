@@ -884,7 +884,7 @@
     <div class="card-box">
 
 
-        <!-- <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
 
             <div>
 
@@ -904,52 +904,29 @@
 
             </div>
 
-        </div> -->
 
+            <!-- CLEAR HISTORY BUTTON -->
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form
+                action="{{ url_for('clear_history') }}"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete all prediction history?');"
+            >
 
-    <div>
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                >
 
-        <h5 class="mb-1 fw-bold">
+                    <i class="fas fa-trash me-2"></i>
 
-            <i class="fas fa-clock-rotate-left text-primary me-2"></i>
+                    Clear History
 
-            Prediction Records
+                </button>
 
-        </h5>
+            </form>
 
-        <small class="text-muted">
-
-            Stored reliability predictions and maintenance recommendations
-
-        </small>
-
-    </div>
-
-
-    <!-- CLEAR HISTORY BUTTON -->
-
-    <form
-        action="{{ url_for('clear_history') }}"
-        method="POST"
-        onsubmit="return confirm('Are you sure you want to delete all prediction history?');"
-    >
-
-        <button
-            type="submit"
-            class="btn btn-danger"
-        >
-
-            <i class="fas fa-trash me-2"></i>
-
-            Clear History
-
-        </button>
-
-    </form>
-
-</div>
+        </div>
 
 
 

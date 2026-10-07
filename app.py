@@ -946,43 +946,69 @@ def predict():
         # SERVER-SIDE VALIDATION
         # ====================================================
 
+        # ----------------------------------------------------
         # Age
+        # ----------------------------------------------------
 
-        if age_value < 0:
+        if (
+            age_value < 0
+            or
+            age_value > 12
+        ):
 
             raise ValueError(
-                "Age cannot be negative."
+                "Age must be between 0 and 12 years."
             )
 
 
+        # ----------------------------------------------------
         # Maintenance Cost
+        # ----------------------------------------------------
 
-        if maintenance_cost_value < 0:
+        if (
+            maintenance_cost_value < 0
+            or
+            maintenance_cost_value > 24029
+        ):
 
             raise ValueError(
-                "Maintenance Cost cannot be negative."
+                "Maintenance Cost must be between 0 and 24029."
             )
 
 
+        # ----------------------------------------------------
         # Downtime
+        # ----------------------------------------------------
 
-        if downtime_value < 0:
+        if (
+            downtime_value < 0
+            or
+            downtime_value > 30
+        ):
 
             raise ValueError(
-                "Downtime cannot be negative."
+                "Downtime must be between 0 and 30 hours."
             )
 
 
+        # ----------------------------------------------------
         # Failure Event Count
+        # ----------------------------------------------------
 
-        if failure_event_count_value < 0:
+        if (
+            failure_event_count_value < 0
+            or
+            failure_event_count_value > 6
+        ):
 
             raise ValueError(
-                "Failure Event Count cannot be negative."
+                "Failure Event Count must be between 0 and 6."
             )
 
 
+        # ----------------------------------------------------
         # Operational Hours
+        # ----------------------------------------------------
 
         if (
             operational_hours_value < 0
@@ -995,7 +1021,9 @@ def predict():
             )
 
 
+        # ----------------------------------------------------
         # Expected Lifespan
+        # ----------------------------------------------------
 
         if expected_lifespan_value != 12:
 
@@ -1004,7 +1032,9 @@ def predict():
             )
 
 
+        # ----------------------------------------------------
         # Maintenance Frequency
+        # ----------------------------------------------------
 
         if (
             maintenance_frequency_value < 1
@@ -1017,7 +1047,9 @@ def predict():
             )
 
 
+        # ----------------------------------------------------
         # Maintenance Class
+        # ----------------------------------------------------
 
         if (
             maintenance_class_value < 1
